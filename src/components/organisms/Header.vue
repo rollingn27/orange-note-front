@@ -22,7 +22,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .wrap {
   display: flex;
   border-bottom: 1px solid black;
@@ -44,16 +44,20 @@ export default {
   flex: 10;
 }
 
-.nav > div {
-  flex: 1;
+.nav {
+  div {
+    flex: 1;
+  }
 }
 .nav-login {
   display: flex;
-  align-items: end;
-  justify-content: end;
+  align-items: flex-end;
+  justify-content: flex-end;
   font-size: 1.25rem;
 }
-.nav-login > span {
-  font-size: 2rem;
+.nav-login {
+  span {
+    font-size: 2rem;
+  }
 }
 </style>

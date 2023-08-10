@@ -1,9 +1,19 @@
 import { createStore } from "vuex";
 
 export default createStore({
-  state: {},
+  state: {
+    isAuthenticated: false,
+  },
   getters: {},
-  mutations: {},
-  actions: {},
+  mutations: {
+    setAuthentication(state, status) {
+      state.isAuthenticated = status;
+    },
+  },
+  actions: {
+    async signIn({ commit }, payload) {
+      commit("setAuthentication", payload);
+    },
+  },
   modules: {},
 });

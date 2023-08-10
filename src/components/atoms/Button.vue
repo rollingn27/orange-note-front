@@ -3,12 +3,15 @@
   <button><slot></slot></button>
 </template>
 <script>
-export default {
-  
-}
+export default {};
 </script>
 <style lang="scss" scoped>
 button {
   all: unset;
+}
+
+button:hover {
+  opacity: 0.8;
+  cursor: pointer;
 }
 </style>
