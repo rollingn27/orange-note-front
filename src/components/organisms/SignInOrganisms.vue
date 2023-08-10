@@ -1,4 +1,5 @@
 <template>
+  <div class="signBackground"></div>
   <div class="signInWrap">
     <div class="header">
       <slot name="header">
@@ -61,11 +62,23 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.signBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  background: rgb(87, 82, 82);
+  filter: blur(110px);
+  opacity: 0.9;
+}
 .signInWrap {
   width: 30rem;
   padding: 1.5rem 2.25rem;
   background: rgb(233, 238, 236);
-
+  border-radius: 3px;
+  z-index: 10;
   .title {
     text-align: center;
   }
