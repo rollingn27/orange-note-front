@@ -5,7 +5,7 @@
       <slot name="header">
         <div class="title"><h1>Orange Note</h1></div>
         <div>
-          <h3>{{ typeText }}</h3>
+          <h3>{{ textProps.typeText }}</h3>
         </div>
       </slot>
     </div>
@@ -27,10 +27,14 @@
     </div>
     <div class="footer">
       <slot name="footer">
-        <div><SubmitButton :submitText="submitText"></SubmitButton></div>
-        <div class="signChange">
-          {{ signChangeText }}
+        <div>
+          <SubmitButton :submitText="textProps.submitText"></SubmitButton>
         </div>
+        <router-link to="/signUp">
+          <div class="signChange">
+            {{ textProps.signChangeText }}
+          </div>
+        </router-link>
       </slot>
     </div>
   </div>
@@ -41,17 +45,9 @@ import UnderLineInput from "../molecules/UnderLineInput.vue";
 import SubmitButton from "../molecules/SubmitButton.vue";
 export default {
   props: {
-    typeText: {
-      type: String,
-      default: "로그인",
-    },
-    signChangeText: {
-      type: String,
-      default: "회원가입",
-    },
-    submitText: {
-      type: String,
-      default: "로그인",
+    textProps: {
+      type: Object,
+      required: true,
     },
   },
   components: {
@@ -69,15 +65,16 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 9;
-  background: rgb(87, 82, 82);
-  filter: blur(110px);
+  background: orange;
+  filter: blur(99px);
   opacity: 0.9;
 }
 .signInWrap {
   width: 30rem;
   padding: 1.5rem 2.25rem;
   background: rgb(233, 238, 236);
-  border-radius: 3px;
+  border-radius: 7px;
+  box-shadow: 5px 5px 5px 5px rgb(235, 4, 4);
   z-index: 10;
   .title {
     text-align: center;
@@ -104,6 +101,7 @@ export default {
       text-align: right;
       text-decoration: underline;
       text-decoration-color: blue;
+      cursor: pointer;
     }
   }
 }
