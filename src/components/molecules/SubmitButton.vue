@@ -30,4 +30,8 @@ button {
   justify-content: center;
   cursor: pointer;
 }
+button:disabled {
+  opacity: 1;
+  cursor: not-allowed;
+}
 </style>
