@@ -4,7 +4,11 @@ export default createStore({
   state: {
     isAuthenticated: false,
   },
-  getters: {},
+  getters: {
+    isAuthenticated(state) {
+      return state.isAuthenticated;
+    },
+  },
   mutations: {
     setAuthentication(state, status) {
       state.isAuthenticated = status;
