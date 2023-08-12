@@ -14,6 +14,8 @@
             :intputType="'text'"
             v-model="loginForm.id"
             inputFontSize="1.25rem"
+            ref="input1"
+            @input="buttonStatus"
           />
         </div>
         <div class="inputWrap">
@@ -22,6 +24,8 @@
             :intputType="'password'"
             v-model="loginForm.password"
             inputFontSize="1.25rem"
+            ref="input2"
+            @input="buttonStatus"
           />
         </div>
       </slot>
@@ -31,14 +35,18 @@
         <div>
           <SubmitButton
             :submitText="textProps.submitText"
-            @click="clickButton"
-          ></SubmitButton>
+            @click="signIn"
+            :disabled="buttonDisabled"
+          />
         </div>
-        <router-link to="/signUp">
-          <div class="signChange">
-            {{ textProps.signChangeText }}
+
+        <div class="signChange">
+          <div>
+            <router-link to="/signUp">
+              {{ textProps.signChangeText }}
+            </router-link>
           </div>
-        </router-link>
+        </div>
       </slot>
     </div>
   </div>
@@ -65,15 +73,31 @@ export default {
         id: "",
         password: "",
       },
+      initialForm: {
+        id: "",
+        password: "",
+      },
+      buttonDisabled: true,
     };
   },
   methods: {
-    clickButton() {
+    signIn() {
       this.$debugLog(
         "SignInOrganism.vue",
         this.loginForm.id,
         this.loginForm.password
       );
+
+      this.loginForm = this.initialForm;
+      this.$refs.input1.inputTextClear();
+      this.$refs.input2.inputTextClear();
+    },
+    buttonStatus() {
+      if (!this.loginForm.id.trim() || !this.loginForm.password.trim()) {
+        this.buttonDisabled = true;
+      } else {
+        this.buttonDisabled = false;
+      }
     },
   },
 };
@@ -130,7 +154,13 @@ export default {
       text-align: right;
       text-decoration: underline;
       text-decoration-color: blue;
-      cursor: pointer;
+      a {
+        cursor: pointer;
+      }
+
+      a:focus {
+        outline: none;
+      }
     }
   }
 }

@@ -1,9 +1,9 @@
 <!-- 인풋 스타일 초기화 -->
 <template>
   <input
-    v-model="inputText"
     v-bind:placeholder="placeholderText"
     v-bind:type="intputType"
+    v-model="inputText"
     :style="{ fontSize: inputFontSize, width: inputWidth }"
   />
 </template>
@@ -11,11 +11,15 @@
 export default {
   data() {
     return {
-      inputText: "",
       fontSize: "1rem",
+      inputText: "",
     };
   },
-
+  methods: {
+    inputTextClear() {
+      this.inputText = "";
+    },
+  },
   props: {
     placeholderText: {
       type: String,
