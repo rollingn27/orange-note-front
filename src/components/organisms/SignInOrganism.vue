@@ -4,31 +4,35 @@
     <div class="header">
       <slot name="header">
         <div class="title"><h1>Orange Note</h1></div>
-        <div>
-          <h3>{{ textProps.typeText }}</h3>
-        </div>
       </slot>
     </div>
     <div class="body">
       <slot name="body">
-        <div>
-          <UnderLineInput
+        <div class="inputWrap">
+          <Input
             :placeholderText="'아이디'"
             :intputType="'text'"
-          ></UnderLineInput>
+            v-model="loginForm.id"
+            inputFontSize="1.25rem"
+          />
         </div>
-        <div>
-          <UnderLineInput
+        <div class="inputWrap">
+          <Input
             :placeholderText="'비밀번호'"
             :intputType="'password'"
-          ></UnderLineInput>
+            v-model="loginForm.password"
+            inputFontSize="1.25rem"
+          />
         </div>
       </slot>
     </div>
     <div class="footer">
       <slot name="footer">
         <div>
-          <SubmitButton :submitText="textProps.submitText"></SubmitButton>
+          <SubmitButton
+            :submitText="textProps.submitText"
+            @click="clickButton"
+          ></SubmitButton>
         </div>
         <router-link to="/signUp">
           <div class="signChange">
@@ -40,9 +44,9 @@
   </div>
 </template>
 <script>
-import UnderLineInputWithButton from "../molecules/UnderLineInputWithButton.vue";
-import UnderLineInput from "../molecules/UnderLineInput.vue";
 import SubmitButton from "../molecules/SubmitButton.vue";
+import Input from "../atoms/Input.vue";
+import mixins from "@/mixins";
 export default {
   props: {
     textProps: {
@@ -50,14 +54,39 @@ export default {
       required: true,
     },
   },
+  mixins: [mixins],
   components: {
-    UnderLineInputWithButton,
-    UnderLineInput,
     SubmitButton,
+    Input,
+  },
+  data() {
+    return {
+      loginForm: {
+        id: "",
+        password: "",
+      },
+    };
+  },
+  methods: {
+    clickButton() {
+      this.$debugLog(
+        "SignInOrganism.vue",
+        this.loginForm.id,
+        this.loginForm.password
+      );
+    },
   },
 };
 </script>
 <style lang="scss" scoped>
+.inputWrap {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid rgb(34, 33, 33);
+  justify-content: space-between;
+  height: 2.5rem;
+  margin-bottom: 0.5rem;
+}
 .signBackground {
   position: fixed;
   top: 0;

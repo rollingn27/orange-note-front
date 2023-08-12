@@ -18,7 +18,6 @@ export default {
   data() {
     return {
       textProps: {
-        typeText: "회원가입",
         signChangeText: "로그인",
         submitText: "회원가입",
       },

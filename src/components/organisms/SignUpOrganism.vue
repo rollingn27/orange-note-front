@@ -4,47 +4,53 @@
     <div class="header">
       <slot name="header">
         <div class="title"><h1>Orange Note</h1></div>
-        <div>
-          <h3>{{ textProps.typeText }}</h3>
-        </div>
       </slot>
     </div>
     <div class="body">
       <slot name="body">
-        <div>
-          <UnderLineInputWithButton
+        <div class="inputWithButton">
+          <Input
             :placeholderText="'아이디'"
             :intputType="'text'"
-          >
-            <template #buttonText>중복확인</template>
-          </UnderLineInputWithButton>
+            v-model="joinForm.id"
+            inputFontSize="1.25rem"
+          />
+          <Button>중복확인</Button>
         </div>
-        <div>
-          <UnderLineInputWithButton
-            :placeholderText="'아이디'"
+        <div class="inputWithButton">
+          <Input
+            :placeholderText="'email'"
             :intputType="'text'"
-          >
-            <template #buttonText>이메일인증</template>
-          </UnderLineInputWithButton>
+            v-model="joinForm.email"
+            inputFontSize="1.25rem"
+          />
+          <Button>이메일인증</Button>
         </div>
-        <div>
-          <UnderLineInput
+        <div class="inputWrap">
+          <Input
             :placeholderText="'비밀번호'"
             :intputType="'password'"
-          ></UnderLineInput>
+            v-model="joinForm.password"
+            inputFontSize="1.25rem"
+          />
         </div>
-        <div>
-          <UnderLineInput
+        <div class="inputWrap">
+          <Input
             :placeholderText="'비밀번호확인'"
             :intputType="'password'"
-          ></UnderLineInput>
+            v-model="joinForm.passwordCheck"
+            inputFontSize="1.25rem"
+          />
         </div>
       </slot>
     </div>
     <div class="footer">
       <slot name="footer">
         <div>
-          <SubmitButton :submitText="textProps.submitText"></SubmitButton>
+          <SubmitButton
+            :submitText="textProps.submitText"
+            @click="clickButton"
+          ></SubmitButton>
         </div>
         <router-link to="/signIn">
           <div class="signChange">
@@ -56,9 +62,10 @@
   </div>
 </template>
 <script>
-import UnderLineInputWithButton from "../molecules/UnderLineInputWithButton.vue";
-import UnderLineInput from "../molecules/UnderLineInput.vue";
 import SubmitButton from "../molecules/SubmitButton.vue";
+import Button from "../atoms/Button.vue";
+import Input from "../atoms/Input.vue";
+import mixins from "@/mixins";
 export default {
   props: {
     textProps: {
@@ -67,13 +74,37 @@ export default {
     },
   },
   components: {
-    UnderLineInputWithButton,
-    UnderLineInput,
+    Input,
     SubmitButton,
+    Button,
+  },
+  mixins: [mixins],
+  methods: {
+    clickButton() {
+      this.$debugLog("SignUpOrganism", JSON.stringify(this.joinForm));
+    },
+  },
+  data() {
+    return {
+      joinForm: {
+        id: "",
+        email: "",
+        password: "",
+        passwordCheck: "",
+      },
+    };
   },
 };
 </script>
 <style lang="scss" scoped>
+.inputWrap {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid rgb(34, 33, 33);
+  justify-content: space-between;
+  height: 2.5rem;
+  margin-bottom: 0.5rem;
+}
 .signBackground {
   position: fixed;
   top: 0;
@@ -118,6 +149,26 @@ export default {
       text-decoration: underline;
       text-decoration-color: blue;
       cursor: pointer;
+    }
+  }
+  .inputWithButton {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid rgb(34, 33, 33);
+    justify-content: space-between;
+    height: 2.5rem;
+    margin-bottom: 0.5rem;
+    button {
+      background: rgb(156, 156, 235);
+      margin: auto 0;
+      border-radius: 5px;
+      color: white;
+      width: 5.75rem;
+      padding: 0.25rem;
+      text-align: center;
+    }
+    input {
+      flex: 1;
     }
   }
 }
