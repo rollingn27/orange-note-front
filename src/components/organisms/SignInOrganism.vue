@@ -15,7 +15,7 @@
             v-model="loginForm.id"
             inputFontSize="1.25rem"
             ref="input1"
-            @input="buttonStatus"
+            @input="checkInput"
           />
         </div>
         <div class="inputWrap">
@@ -25,7 +25,7 @@
             v-model="loginForm.password"
             inputFontSize="1.25rem"
             ref="input2"
-            @input="buttonStatus"
+            @input="checkInput"
           />
         </div>
       </slot>
@@ -55,6 +55,7 @@
 import SubmitButton from "../molecules/SubmitButton.vue";
 import Input from "../atoms/Input.vue";
 import mixins from "@/mixins";
+import { mapState, mapActions } from "vuex";
 export default {
   props: {
     textProps: {
@@ -66,6 +67,9 @@ export default {
   components: {
     SubmitButton,
     Input,
+  },
+  computed: {
+    ...mapState("auth", ["isAuthenticated"]),
   },
   data() {
     return {
@@ -81,23 +85,39 @@ export default {
     };
   },
   methods: {
-    signIn() {
+    ...mapActions("auth", ["signIn", "logout"]),
+    async signIn() {
       this.$debugLog(
         "SignInOrganism.vue",
         this.loginForm.id,
         this.loginForm.password
       );
 
-      this.loginForm = this.initialForm;
+      this.loginForm = Object.assign({}, this.initialForm);
+      this.checkInput();
       this.$refs.input1.inputTextClear();
       this.$refs.input2.inputTextClear();
-    },
-    buttonStatus() {
-      if (!this.loginForm.id.trim() || !this.loginForm.password.trim()) {
-        this.buttonDisabled = true;
+
+      let payload = {
+        url: "https://f8a1e0f2-87cf-4655-bb24-ad20df420834.mock.pstmn.io/auth",
+        params: this.loginForm,
+        method: "post",
+      };
+
+      const result = await this.$store.dispatch("auth/signIn", payload);
+      console.log(result);
+      console.log(result.success);
+      if (result.success) {
+        this.$router.push("/");
       } else {
-        this.buttonDisabled = false;
+        alert("에러");
       }
+    },
+    checkInput() {
+      this.buttonDisabled = this.$submitButtonStatus(
+        this.loginForm.id,
+        this.loginForm.password
+      );
     },
   },
 };
