@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import SignInPage from "@/views/SignInPage";
 import SignUpPage from "@/views/SignUpPage";
 import MainPage from "@/views/MainPage";
-import store from "@/store/index";
+
 const routes = [
   {
     path: "/",
@@ -30,7 +30,10 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((routeInfo) => routeInfo.meta.requireAuth)) {
-    if (!store.getters.isAuthenticated) {
+    if (
+      !JSON.parse(localStorage.getItem("vuex")) ||
+      !JSON.parse(localStorage.getItem("vuex")).auth.isAuthenticated
+    ) {
       next({
         path: "/signIn",
       });
