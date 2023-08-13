@@ -98,9 +98,12 @@ export default {
       this.$refs.input1.inputTextClear();
       this.$refs.input2.inputTextClear();
 
+      let params = new Object();
+      params.loginInfo = this.loginForm;
+
       let payload = {
         url: "/user/signin",
-        params: this.loginForm,
+        params: params,
         method: "post",
       };
 
