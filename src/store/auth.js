@@ -1,14 +1,10 @@
-import { api } from "@/api";
+import { postApi } from "@/api";
 const state = {
   isAuthenticated: false,
   user: "",
 };
 
-const getters = {
-  isAuthenticated(state) {
-    return state.isAuthenticated;
-  },
-};
+const getters = {};
 
 const mutations = {
   setAuthentication(state, status) {
@@ -19,7 +15,7 @@ const mutations = {
 
 const actions = {
   async signIn({ commit }, payload) {
-    const response = await api(payload);
+    const response = await postApi(payload);
     if (response.status == 200) {
       commit("setAuthentication", response.data);
       return { success: true };

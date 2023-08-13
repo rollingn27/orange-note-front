@@ -56,6 +56,7 @@ import SubmitButton from "../molecules/SubmitButton.vue";
 import Input from "../atoms/Input.vue";
 import mixins from "@/mixins";
 import { mapState, mapActions } from "vuex";
+
 export default {
   props: {
     textProps: {
@@ -93,28 +94,23 @@ export default {
         this.loginForm.password
       );
 
-      this.loginForm = Object.assign({}, this.initialForm);
-      this.checkInput();
-      this.$refs.input1.inputTextClear();
-      this.$refs.input2.inputTextClear();
-
-      let params = new Object();
-      params.loginInfo = this.loginForm;
-
       let payload = {
         url: "/user/signin",
-        params: params,
-        method: "post",
+        params: this.loginForm,
       };
 
       const result = await this.$store.dispatch("auth/signIn", payload);
-      console.log(result);
-      console.log(result.success);
+
       if (result.success) {
         this.$router.push("/");
       } else {
         alert("에러");
       }
+
+      this.loginForm = Object.assign({}, this.initialForm);
+      this.$refs.input1.inputTextClear();
+      this.$refs.input2.inputTextClear();
+      this.checkInput();
     },
     checkInput() {
       this.buttonDisabled = this.$submitButtonStatus(
