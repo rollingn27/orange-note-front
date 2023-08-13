@@ -99,7 +99,7 @@ export default {
       this.$refs.input2.inputTextClear();
 
       let payload = {
-        url: "https://f8a1e0f2-87cf-4655-bb24-ad20df420834.mock.pstmn.io/auth",
+        url: "/user/signin",
         params: this.loginForm,
         method: "post",
       };
