@@ -4,21 +4,44 @@
     <div class="nav">
       <div class="nav-logo">
         <img src="@/assets/orangeIcon.png" />
+        <div
+          :style="{
+            top: '3.25rem',
+            left: '5rem',
+            position: 'fixed',
+            width: '12rem',
+          }"
+        >
+          <SubmitButton submitText="임시로그아웃" @click="signOutClick" />
+        </div>
       </div>
       <div class="nav-space"></div>
-      <div class="nav-login">
-        <span>{{ nickName }}</span>
-        님 안녕하세요.
+      <div class="nav-login" v-show="!!userId">
+        <span>{{ userId }}</span
+        >님 안녕하세요.
       </div>
     </div>
   </div>
 </template>
 <script>
+import { mapState, mapActions } from "vuex";
+import SubmitButton from "../molecules/SubmitButton.vue";
+
 export default {
+  components: { SubmitButton },
   data() {
-    return {
-      nickName: "rolling",
-    };
+    return {};
+  },
+  computed: {
+    ...mapState("auth", ["userId"]),
+    ...mapActions("auth", ["signOut"]),
+  },
+  methods: {
+    signOutClick() {
+      this.$store.dispatch("auth/signOut");
+
+      this.$router.push("/signIn");
+    },
   },
 };
 </script>
@@ -57,7 +80,7 @@ export default {
 }
 .nav-login {
   span {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 }
 </style>

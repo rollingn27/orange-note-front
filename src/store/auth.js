@@ -1,27 +1,37 @@
 import { postApi } from "@/api";
 const state = {
   isAuthenticated: false,
-  user: "",
+  userId: "",
 };
 
 const getters = {};
 
 const mutations = {
   setAuthentication(state, status) {
-    state.isAuthenticated = status.isAuthenticated;
-    state.user = status.user;
+    state.isAuthenticated = true;
+    state.userId = status.userId;
+  },
+  deleteUserInfo(state) {
+    state.userId = "";
   },
 };
 
 const actions = {
   async signIn({ commit }, payload) {
     const response = await postApi(payload);
+
     if (response.status == 200) {
-      commit("setAuthentication", response.data);
+      const signInfo = response.data.signInfo;
+      commit("setAuthentication", signInfo);
       return { success: true };
     } else {
-      return { success: false };
+      return { success: false, errorMessage: response.data.message };
     }
+  },
+
+  signOut({ commit }) {
+    localStorage.removeItem("vuex");
+    commit("deleteUserInfo");
   },
 };
 
