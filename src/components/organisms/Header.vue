@@ -39,8 +39,7 @@ export default {
   methods: {
     signOutClick() {
       this.$store.dispatch("auth/signOut");
-
-      this.$router.push("/signIn");
+      this.$router.go(0);
     },
   },
 };

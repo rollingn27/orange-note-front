@@ -11,9 +11,6 @@ const mutations = {
     state.isAuthenticated = true;
     state.userId = status.userId;
   },
-  deleteUserInfo(state) {
-    state.userId = "";
-  },
 };
 
 const actions = {
@@ -29,9 +26,8 @@ const actions = {
     }
   },
 
-  signOut({ commit }) {
+  signOut() {
     localStorage.removeItem("vuex");
-    commit("deleteUserInfo");
   },
 };
 
