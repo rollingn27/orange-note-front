@@ -34,11 +34,11 @@ export default {
   },
   computed: {
     ...mapState("auth", ["userId"]),
-    ...mapActions("auth", ["signOut"]),
   },
   methods: {
+    ...mapActions("auth", ["signOut"]),
     signOutClick() {
-      this.$store.dispatch("auth/signOut");
+      this.signOut();
       this.$router.go(0);
     },
   },

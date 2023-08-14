@@ -35,7 +35,7 @@
         <div>
           <SubmitButton
             :submitText="textProps.submitText"
-            @click="signIn"
+            @click="clickSignIn"
             :disabled="buttonDisabled"
           />
         </div>
@@ -55,7 +55,7 @@
 import SubmitButton from "../molecules/SubmitButton.vue";
 import Input from "../atoms/Input.vue";
 import mixins from "@/mixins";
-import { mapState, mapActions } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   props: {
@@ -85,7 +85,8 @@ export default {
   },
   methods: {
     ...mapActions("auth", ["signIn"]),
-    async signIn() {
+
+    async clickSignIn() {
       this.$debugLog(
         "SignInOrganism.vue",
         this.loginForm.id,
@@ -93,11 +94,11 @@ export default {
       );
 
       let payload = {
-        url: "/user/signIn",
+        url: "/user/signin",
         params: this.loginForm,
       };
 
-      const result = await this.$store.dispatch("auth/signIn", payload);
+      const result = await this.signIn(payload);
       this.loginForm = Object.assign({}, this.initialForm);
       this.$refs.input1.inputTextClear();
       this.$refs.input2.inputTextClear();
