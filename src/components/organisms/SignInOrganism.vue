@@ -93,20 +93,22 @@ export default {
       );
 
       let payload = {
-        url: "/user/signin",
+        url: "/user/signIn",
         params: this.loginForm,
       };
 
       const result = await this.$store.dispatch("auth/signIn", payload);
-
       this.loginForm = Object.assign({}, this.initialForm);
       this.$refs.input1.inputTextClear();
       this.$refs.input2.inputTextClear();
       this.checkInput();
-      if (result.success) {
-        this.$router.push("/");
-      } else {
-        alert("에러");
+
+      if (!!result) {
+        if (result.success) {
+          this.$router.push("/");
+        } else {
+          alert("에러 메시지 만들기");
+        }
       }
     },
     checkInput() {

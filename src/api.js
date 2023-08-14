@@ -8,7 +8,9 @@ const axiosInstance = axios.create({
 });
 
 const postApi = async (payload) => {
-  return await axiosInstance.post(payload.url, payload.params);
+  return await axiosInstance.post(payload.url, payload.params).catch((e) => {
+    return;
+  });
 };
 
 const getApi = async (payload) => {

@@ -16,13 +16,16 @@ const mutations = {
 const actions = {
   async signIn({ commit }, payload) {
     const response = await postApi(payload);
-
-    if (response.status == 200) {
-      const signInfo = response.data.signInfo;
-      commit("setAuthentication", signInfo);
-      return { success: true };
-    } else {
-      return { success: false, errorMessage: response.data.message };
+    try {
+      if (response.status == 200) {
+        const signInfo = response.data.signInfo;
+        commit("setAuthentication", signInfo);
+        return { success: true };
+      } else {
+        return { success: false, errorMessage: response.data.message };
+      }
+    } catch {
+      return;
     }
   },
 
