@@ -92,7 +92,7 @@ export default {
 
     async clickSignIn() {
       const payload = {
-        url: "/user/signin",
+        url: "/user/signIn",
         params: this.loginForm,
       };
 

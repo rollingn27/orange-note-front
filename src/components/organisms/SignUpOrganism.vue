@@ -44,7 +44,7 @@
           <div></div>
           <div>인증번호입력 :</div>
           <input v-model="emailCheckCode" />
-          <Button @click="codeCheck">확인</Button>
+          <Button @click="emailConfirm">확인</Button>
         </div>
         <AlertDialog :message="confirmAlertMessage" @close="closeAlertDialog" />
         <div class="inputWrap">
@@ -115,13 +115,18 @@ export default {
   },
   mixins: [mixins],
   computed: {
-    ...mapState("auth", ["emailConfirmText"]),
+    // ...mapState("auth", ["emailConfirmText"]),
     emailCheckText: function () {
       return this.emailWaiting ? "재전송" : "이메일인증";
     },
   },
   methods: {
-    ...mapActions("auth", ["$idCheck"]),
+    ...mapActions("auth", [
+      "$idCheck",
+      "$signUp",
+      "$emailConfirm",
+      "$emailCheck",
+    ]),
     async signUp() {
       if (this.joinForm.password != this.joinForm.passwordCheck) {
         this.passwordCheckAlertMessage = "비밀번호가 일치하지 않습니다.";
@@ -134,7 +139,7 @@ export default {
       }
 
       const payload = {
-        url: "/user/signup",
+        url: "/user/signUp",
         params: this.joinForm,
       };
 
@@ -169,7 +174,7 @@ export default {
       }
 
       if (!this.isValidEmail(this.joinForm.email)) {
-        this.emailAlertMessage = "e-mail형식이 올바르지 않습니다.";
+        this.emailAlertMessage = "email형식이 올바르지 않습니다.";
         this.joinForm.email = "";
         this.$refs.input2.inputTextClear();
         return;
@@ -237,13 +242,36 @@ export default {
       this.confirmAlertMessage = "";
       this.passwordCheckAlertMessage = "";
     },
-    codeCheck() {
-      if (emailCheckCode == emailConfirmText) {
-        this.emailWaiting = false;
+    // codeCheck() {
+    //   if (emailCheckCode == emailConfirmText) {
+    //     this.emailWaiting = false;
+    //     this.emailCheckStatus = true;
+    //     this.$refs.input3.$el.focus();
+    //   } else {
+    //     this.confirmAlertMessage = "인증번호가 틀렸습니다.";
+    //   }
+    // },
+    async emailConfirm() {
+      if (!this.emailCheckCode.trim()) {
+        this.confirmAlertMessage = "인증번호를 입력하세요.";
+        return;
+      }
+
+      let params = new Object();
+      params.emailCheckCode = this.emailCheckCode;
+      const payload = {
+        url: "/user/emailConfirm",
+        params: params,
+      };
+
+      const result = await this.$emailConfirm(payload);
+      this.emailCheckCode = "";
+
+      if (result.success) {
         this.emailCheckStatus = true;
         this.$refs.input3.$el.focus();
       } else {
-        this.confirmAlertMessage = "인증번호가 틀렸습니다.";
+        this.confirmAlertMessage = result.errorMessage;
       }
     },
   },

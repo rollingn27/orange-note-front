@@ -48,13 +48,21 @@ const actions = {
     const response = await postApi(payload);
 
     if (response.success) {
-      commit("emailConfirm", response.data);
+      // commit("emailConfirm", response.data);
       return { success: true };
     } else {
       return { success: false, errorMessage: response.errorMessage };
     }
   },
-  async $signUp({ commit }, payload) {
+  async $signUp(payload) {
+    const response = await postApi(payload);
+    if (response.success) {
+      return { success: true };
+    } else {
+      return { success: false, errorMessage: response.errorMessage };
+    }
+  },
+  async $emailConfirm({ commit }, payload) {
     const response = await postApi(payload);
     if (response.success) {
       return { success: true };
