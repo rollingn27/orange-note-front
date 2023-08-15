@@ -34,7 +34,7 @@ const actions = {
     localStorage.removeItem("vuex");
   },
 
-  async $idCheck(payload) {
+  async $idCheck({}, payload) {
     const response = await postApi(payload);
 
     if (response.success) {
@@ -54,7 +54,7 @@ const actions = {
       return { success: false, errorMessage: response.errorMessage };
     }
   },
-  async $signUp(payload) {
+  async $signUp({}, payload) {
     const response = await postApi(payload);
     if (response.success) {
       return { success: true };
