@@ -20,9 +20,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .body {
-  min-height: 65rem;
+  height: 50rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 </style>
