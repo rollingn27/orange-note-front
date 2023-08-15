@@ -2,7 +2,8 @@ import { postApi } from "@/api";
 
 const state = {
   isAuthenticated: false,
-  userName: "",
+  userId: "",
+  emailConfirmText: "",
 };
 
 const getters = {};
@@ -10,41 +11,55 @@ const getters = {};
 const mutations = {
   setAuthentication(state, status) {
     state.isAuthenticated = true;
-    state.userName = status.userName;
+    state.userId = status.userId;
+  },
+  emailConfirm(state, status) {
+    state.emailConfirmText = status.emailConfirmText;
   },
 };
 
 const actions = {
-  async signIn({ commit }, payload) {
+  async $signIn({ commit }, payload) {
     const response = await postApi(payload);
 
-    if (response.status == 200) {
-      if (response.result == "success") {
-        const signInfo = response.signInfo;
-        commit("setAuthentication", signInfo);
-        return { success: true };
-      } else {
-        return { success: false, errorMessage: response.errorMessage };
-      }
+    if (response.success) {
+      commit("setAuthentication", response.data);
+      return { success: true };
     } else {
       return { success: false, errorMessage: response.errorMessage };
     }
   },
 
-  signOut() {
+  $signOut() {
     localStorage.removeItem("vuex");
   },
 
   async $idCheck(payload) {
     const response = await postApi(payload);
-    try {
-      if (response.status == 200) {
-        return { success: true };
-      } else {
-        return { success: false, errorMessage: response.data.message };
-      }
-    } catch {
-      return;
+
+    if (response.success) {
+      return { success: true };
+    } else {
+      return { success: false, errorMessage: response.errorMessage };
+    }
+  },
+
+  async $emailCheck({ commit }, payload) {
+    const response = await postApi(payload);
+
+    if (response.success) {
+      commit("emailConfirm", response.data);
+      return { success: true };
+    } else {
+      return { success: false, errorMessage: response.errorMessage };
+    }
+  },
+  async $signUp({ commit }, payload) {
+    const response = await postApi(payload);
+    if (response.success) {
+      return { success: true };
+    } else {
+      return { success: false, errorMessage: response.errorMessage };
     }
   },
 };

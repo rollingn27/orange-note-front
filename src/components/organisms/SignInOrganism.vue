@@ -11,7 +11,7 @@
         <div class="inputWrap">
           <Input
             :placeholderText="'아이디'"
-            :intputType="'text'"
+            :inputType="'text'"
             v-model="loginForm.id"
             inputFontSize="1.25rem"
             ref="input1"
@@ -21,7 +21,7 @@
         <div class="inputWrap">
           <Input
             :placeholderText="'비밀번호'"
-            :intputType="'password'"
+            :inputType="'password'"
             v-model="loginForm.password"
             inputFontSize="1.25rem"
             ref="input2"
@@ -88,32 +88,24 @@ export default {
     };
   },
   methods: {
-    ...mapActions("auth", ["signIn"]),
+    ...mapActions("auth", ["$signIn"]),
 
     async clickSignIn() {
-      this.$debugLog(
-        "SignInOrganism.vue",
-        this.loginForm.id,
-        this.loginForm.password
-      );
-
       const payload = {
         url: "/user/signin",
         params: this.loginForm,
       };
 
-      const result = await this.signIn(payload);
+      const result = await this.$signIn(payload);
       this.loginForm = Object.assign({}, this.initialForm);
       this.$refs.input1.inputTextClear();
       this.$refs.input2.inputTextClear();
       this.checkInput();
 
-      if (!!result) {
-        if (result.success) {
-          this.$router.push("/");
-        } else {
-          this.alertMessage = result.errorMessage;
-        }
+      if (result.success) {
+        this.$router.push("/");
+      } else {
+        this.alertMessage = result.errorMessage;
       }
     },
     checkInput() {
