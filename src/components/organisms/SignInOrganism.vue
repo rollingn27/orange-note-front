@@ -1,6 +1,6 @@
 <template>
-  <div class="signBackground"></div>
-  <div class="signInWrap">
+  <div class="signBackground" @click="closeAlertDialog"></div>
+  <div class="signInWrap" @click="closeAlertDialog">
     <div class="header">
       <slot name="header">
         <div class="title"><h1>Orange Note</h1></div>
@@ -30,6 +30,7 @@
         </div>
       </slot>
     </div>
+    <AlertDialog :message="alertMessage" @close="closeAlertDialog" />
     <div class="footer">
       <slot name="footer">
         <div>
@@ -56,6 +57,7 @@ import SubmitButton from "../molecules/SubmitButton.vue";
 import Input from "../atoms/Input.vue";
 import mixins from "@/mixins";
 import { mapActions } from "vuex";
+import AlertDialog from "./AlertDialog.vue";
 
 export default {
   props: {
@@ -68,6 +70,7 @@ export default {
   components: {
     SubmitButton,
     Input,
+    AlertDialog,
   },
 
   data() {
@@ -81,6 +84,7 @@ export default {
         password: "",
       },
       buttonDisabled: true,
+      alertMessage: "",
     };
   },
   methods: {
@@ -93,7 +97,7 @@ export default {
         this.loginForm.password
       );
 
-      let payload = {
+      const payload = {
         url: "/user/signin",
         params: this.loginForm,
       };
@@ -108,7 +112,7 @@ export default {
         if (result.success) {
           this.$router.push("/");
         } else {
-          alert("에러 메시지 만들기");
+          this.alertMessage = result.errorMessage;
         }
       }
     },
@@ -117,6 +121,9 @@ export default {
         this.loginForm.id,
         this.loginForm.password
       );
+    },
+    closeAlertDialog() {
+      this.alertMessage = "";
     },
   },
 };
