@@ -43,7 +43,7 @@
         <div class="emailWaiting" v-if="emailWaiting">
           <div></div>
           <div>인증번호입력 :</div>
-          <input v-model="emailCheckCode" />
+          <input placeholder="야" v-model="emailCheckCode" />
           <Button @click="emailConfirm">확인</Button>
         </div>
         <AlertDialog :message="confirmAlertMessage" @close="closeAlertDialog" />
@@ -100,6 +100,7 @@ import Input from "../atoms/Input.vue";
 import mixins from "@/mixins";
 import AlertDialog from "./AlertDialog.vue";
 import { mapActions, mapState } from "vuex";
+
 export default {
   props: {
     textProps: {
@@ -107,6 +108,7 @@ export default {
       required: true,
     },
   },
+
   components: {
     Input,
     SubmitButton,
@@ -127,6 +129,7 @@ export default {
       "$emailConfirm",
       "$emailCheck",
     ]),
+
     async signUp() {
       if (this.joinForm.password != this.joinForm.passwordCheck) {
         this.passwordCheckAlertMessage = "비밀번호가 일치하지 않습니다.";
@@ -198,11 +201,13 @@ export default {
       }
     },
     isBlankInput(inputText) {
-      const pattern = /^\s*$/;
-      return !pattern.test(inputText);
+      if (inputText.includes(" ")) {
+        return true;
+      }
+      return false;
     },
     isValidEmail(email) {
-      const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      let pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return pattern.test(email);
     },
     async idCheck() {
@@ -226,13 +231,12 @@ export default {
       };
 
       const result = await this.$idCheck(payload);
-      this.joinForm.id = "";
-      this.$refs.input1.inputTextClear();
-
       if (result.success) {
         this.idCheckStatus = true;
         this.$refs.input2.$el.focus();
       } else {
+        this.joinForm.id = "";
+        this.$refs.input1.inputTextClear();
         this.alertMessage = result.errorMessage;
       }
     },
@@ -326,6 +330,9 @@ export default {
     all: unset;
     border: 1px solid gray;
     border-radius: 5px;
+    padding-right: 0.75rem;
+    text-align: right;
+    width: 7.5rem;
     margin-right: 0.5rem;
   }
 
