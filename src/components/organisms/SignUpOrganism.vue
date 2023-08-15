@@ -43,8 +43,8 @@
         <div class="emailWaiting" v-if="emailWaiting">
           <div></div>
           <div>인증번호입력 :</div>
-          <input placeholder="야" v-model="emailCheckCode" />
-          <Button @click="emailConfirm">확인</Button>
+          <InputTimer v-model="emailCheckCode" />
+          <Button @click.stop="emailConfirm">확인</Button>
         </div>
         <AlertDialog :message="confirmAlertMessage" @close="closeAlertDialog" />
         <div class="inputWrap">
@@ -100,6 +100,7 @@ import Input from "../atoms/Input.vue";
 import mixins from "@/mixins";
 import AlertDialog from "./AlertDialog.vue";
 import { mapActions, mapState } from "vuex";
+import InputTimer from "../molecules/InputTimer.vue";
 
 export default {
   props: {
@@ -114,6 +115,7 @@ export default {
     SubmitButton,
     Button,
     AlertDialog,
+    InputTimer,
   },
   mixins: [mixins],
   computed: {
@@ -273,6 +275,7 @@ export default {
 
       if (result.success) {
         this.emailCheckStatus = true;
+        this.emailWaiting = false;
         this.$refs.input3.$el.focus();
       } else {
         this.confirmAlertMessage = result.errorMessage;
