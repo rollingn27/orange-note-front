@@ -2,7 +2,7 @@
 <template>
   <input
     v-bind:placeholder="placeholderText"
-    v-bind:type="intputType"
+    v-bind:type="inputType"
     v-model="inputText"
     :style="{ fontSize: inputFontSize, width: inputWidth }"
   />
@@ -25,7 +25,7 @@ export default {
       type: String,
       required: true,
     },
-    intputType: {
+    inputType: {
       type: String,
       required: true,
     },

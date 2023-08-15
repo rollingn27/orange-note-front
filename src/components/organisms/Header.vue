@@ -12,7 +12,7 @@
             width: '12rem',
           }"
         >
-          <SubmitButton submitText="임시로그아웃" @click="signOutClick" />
+          <SubmitButton submitText="임시로그아웃" @click="signOut" />
         </div>
       </div>
       <div class="nav-space"></div>
@@ -36,9 +36,9 @@ export default {
     ...mapState("auth", ["userId"]),
   },
   methods: {
-    ...mapActions("auth", ["signOut"]),
-    signOutClick() {
-      this.signOut();
+    ...mapActions("auth", ["$signOut"]),
+    signOut() {
+      this.$signOut();
       this.$router.go(0);
     },
   },
