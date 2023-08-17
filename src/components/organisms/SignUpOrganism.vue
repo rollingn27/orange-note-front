@@ -119,7 +119,7 @@ export default {
   },
   mixins: [mixins],
   computed: {
-    // ...mapState("auth", ["emailConfirmText"]),
+    
     emailCheckText: function () {
       return this.emailWaiting ? "재전송" : "이메일인증";
     },
@@ -193,14 +193,20 @@ export default {
       };
 
       const result = await this.$emailCheck(payload);
-      this.joinForm.email = "";
-      this.$refs.input2.inputTextClear();
+      
 
-      if (result.success) {
-        this.emailWaiting = true;
+      if (result.success) {     
+        this.emailWaiting = false;        
+        this.$nextTick(() => {             
+          this.emailWaiting = true;        
+        })
+        
       } else {
         this.emailAlertMessage = result.errorMessage;
+        this.joinForm.email = "";
+        this.$refs.input2.inputTextClear();
       }
+      this.checkInput();
     },
     isBlankInput(inputText) {
       if (inputText.includes(" ")) {
@@ -248,15 +254,7 @@ export default {
       this.confirmAlertMessage = "";
       this.passwordCheckAlertMessage = "";
     },
-    // codeCheck() {
-    //   if (emailCheckCode == emailConfirmText) {
-    //     this.emailWaiting = false;
-    //     this.emailCheckStatus = true;
-    //     this.$refs.input3.$el.focus();
-    //   } else {
-    //     this.confirmAlertMessage = "인증번호가 틀렸습니다.";
-    //   }
-    // },
+  
     async emailConfirm() {
       if (!this.emailCheckCode.trim()) {
         this.confirmAlertMessage = "인증번호를 입력하세요.";
@@ -305,6 +303,7 @@ export default {
       emailCheckStatus: false,
       emailWaiting: false,
       emailCheckCode: "",
+      
     };
   },
 };
