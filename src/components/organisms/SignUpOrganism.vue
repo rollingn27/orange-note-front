@@ -16,6 +16,7 @@
             v-model="joinForm.id"
             inputFontSize="1.25rem"
             @input="checkInput"
+            :readonly="readonlyModeId"
             ref="input1"
           />
 
@@ -33,6 +34,7 @@
             inputFontSize="1.25rem"
             @input="checkInput"
             ref="input2"
+            :readonly="readonlyModeEmail"
           />
           <Button @click.stop="emailCheck" v-if="!emailCheckStatus">
             {{ emailCheckText }}
@@ -238,6 +240,7 @@ export default {
       const result = await this.$idCheck(payload);
       if (result.success) {
         this.idCheckStatus = true;
+        this.readonlyModeId = true;
         this.$refs.input2.$el.focus();
       } else {
         this.joinForm.id = "";
@@ -271,6 +274,7 @@ export default {
       if (result.success) {
         this.emailCheckStatus = true;
         this.emailWaiting = false;
+        this.readonlyModeEmail = true;
         this.$refs.input3.$el.focus();
       } else {
         this.confirmAlertMessage = result.errorMessage;
@@ -300,6 +304,8 @@ export default {
       emailCheckStatus: false,
       emailWaiting: false,
       emailCheckCode: "",
+      readonlyModeEmail: false,
+      readonlyModeId: false,
     };
   },
 };
