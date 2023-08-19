@@ -26,7 +26,7 @@ const actions = {
       commit("setAuthentication", response.data);
       return { success: true };
     } else {
-      return { success: false, errorMessage: response.errorMessage };
+      return { success: false, errorMessage: response.data };
     }
   },
 
@@ -40,7 +40,7 @@ const actions = {
     if (response.success) {
       return { success: true };
     } else {
-      return { success: false, errorMessage: response.errorMessage };
+      return { success: false, errorMessage: response.data };
     }
   },
 
@@ -48,10 +48,9 @@ const actions = {
     const response = await postApi(payload);
 
     if (response.success) {
-      // commit("emailConfirm", response.data);
       return { success: true };
     } else {
-      return { success: false, errorMessage: response.errorMessage };
+      return { success: false, errorMessage: response.data };
     }
   },
   async $signUp({}, payload) {
@@ -59,7 +58,7 @@ const actions = {
     if (response.success) {
       return { success: true };
     } else {
-      return { success: false, errorMessage: response.errorMessage };
+      return { success: false, errorMessage: response.data };
     }
   },
   async $emailConfirm({ commit }, payload) {
@@ -67,7 +66,7 @@ const actions = {
     if (response.success) {
       return { success: true };
     } else {
-      return { success: false, errorMessage: response.errorMessage };
+      return { success: false, errorMessage: response.data };
     }
   },
 };

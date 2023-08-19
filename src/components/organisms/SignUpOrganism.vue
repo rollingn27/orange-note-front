@@ -119,7 +119,6 @@ export default {
   },
   mixins: [mixins],
   computed: {
-    
     emailCheckText: function () {
       return this.emailWaiting ? "재전송" : "이메일인증";
     },
@@ -193,14 +192,12 @@ export default {
       };
 
       const result = await this.$emailCheck(payload);
-      
 
-      if (result.success) {     
-        this.emailWaiting = false;        
-        this.$nextTick(() => {             
-          this.emailWaiting = true;        
-        })
-        
+      if (result.success) {
+        this.emailWaiting = false;
+        this.$nextTick(() => {
+          this.emailWaiting = true;
+        });
       } else {
         this.emailAlertMessage = result.errorMessage;
         this.joinForm.email = "";
@@ -254,7 +251,7 @@ export default {
       this.confirmAlertMessage = "";
       this.passwordCheckAlertMessage = "";
     },
-  
+
     async emailConfirm() {
       if (!this.emailCheckCode.trim()) {
         this.confirmAlertMessage = "인증번호를 입력하세요.";
@@ -303,7 +300,6 @@ export default {
       emailCheckStatus: false,
       emailWaiting: false,
       emailCheckCode: "",
-      
     };
   },
 };
