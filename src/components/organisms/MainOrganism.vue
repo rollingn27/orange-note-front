@@ -75,7 +75,7 @@ export default {
       opacity: 1,
       modalStatus: false,
       createModal: false,
-      issueModal: true,
+      issueModal: false,
     };
   },
 };
