@@ -4,15 +4,23 @@
     <div class="inputeArea">
       <div class="inputStyle">
         <div class="inputName">Project Name</div>
-        <input />
+        <input class="innerInput" />
       </div>
       <div class="inputStyle">
         <div class="inputName">Add Member</div>
-        <input />
+        <div class="innerDiv">
+          <input />
+          <ul>
+            <li>n27kek@knou.ac.kr</li>
+            <li>n27kek@knou.ac.kr</li>
+            <li>n27kek@knou.ac.kr</li>
+            <li>n27kek@knou.ac.kr</li>
+          </ul>
+        </div>
       </div>
       <div class="inputStyle">
         <div class="inputName">Description</div>
-        <input />
+        <input class="innerInput" />
       </div>
       <div class="submitStyle">
         <div class="cancel" @click="closeModal">Cancel</div>
@@ -51,18 +59,55 @@ export default {
   margin: 0 0 3rem 2.5rem;
   align-items: center;
   font-size: 1.25rem;
+
+  .inputName {
+    width: 8rem;
+  }
+}
+.innerDiv {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  margin: 0 3rem;
+
   input {
     all: unset;
     background: white;
-    width: 85%;
     height: 3rem;
-    margin: 0 3rem;
     border-radius: 5px;
     padding-left: 1.25rem;
+    width: 28.86rem;
   }
-  div {
-    width: 8rem;
+  ul,
+  li {
+    all: unset;
   }
+  ul {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 16.5rem;
+    background: white;
+    border-radius: 5px;
+    width: 30.2rem;
+    color: rgba(0, 0, 0, 0.5);
+  }
+  li {
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  li:hover {
+    color: black;
+  }
+}
+.innerInput {
+  all: unset;
+  background: white;
+  width: 85%;
+  height: 3rem;
+  margin: 0 3rem;
+  border-radius: 5px;
+  padding-left: 1.25rem;
 }
 .submitStyle {
   display: flex;
@@ -75,7 +120,7 @@ export default {
     background: #a29bfe;
     width: 10rem;
     height: 2.5rem;
-    margin: 0 2rem 1rem 0;
+    margin: 0 3rem 1rem 0;
     color: white;
     display: flex;
     justify-content: center;

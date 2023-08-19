@@ -12,7 +12,15 @@
       </div>
       <div class="inputStyle">
         <div class="inputName">Assignee</div>
-        <input />
+        <div class="innerDiv">
+          <input />
+          <ul>
+            <li>n27kek@knou.ac.kr</li>
+            <li>n27kek@knou.ac.kr</li>
+            <li>n27kek@knou.ac.kr</li>
+            <li>n27kek@knou.ac.kr</li>
+          </ul>
+        </div>
       </div>
       <div class="inputStyle imgStyle">
         <div class="inputName">Priority</div>
@@ -65,8 +73,46 @@ export default {
     border-radius: 5px;
     padding-left: 1.25rem;
   }
-  div {
+  .inputName {
     width: 8rem;
+  }
+}
+
+.innerDiv {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  margin: 0 3rem;
+
+  input {
+    all: unset;
+    background: white;
+    height: 3rem;
+    border-radius: 5px;
+    padding-left: 1.25rem;
+    width: 28.86rem;
+  }
+  ul,
+  li {
+    all: unset;
+  }
+  ul {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 22.75rem;
+    background: white;
+    border-radius: 5px;
+    width: 30.2rem;
+    color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+  }
+  li {
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  li:hover {
+    color: black;
   }
 }
 .submitStyle {
@@ -80,7 +126,7 @@ export default {
     background: #a29bfe;
     width: 10rem;
     height: 2.5rem;
-    margin: 0 2rem 1rem 0;
+    margin: 0 3rem 1rem 0;
     color: white;
     display: flex;
     justify-content: center;
