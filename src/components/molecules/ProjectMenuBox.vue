@@ -1,7 +1,7 @@
 <template>
   <div class="menuArea">
     <span>Project</span>
-    <img src="@/assets/menu.png" @click="openProjectList" />
+    <img src="@/assets/menu.png" @click.stop="openProjectList" />
   </div>
 </template>
 <script>
@@ -31,6 +31,7 @@ export default {
     width: 2rem;
     height: 2rem;
     margin: auto 0.5rem auto auto;
+    cursor: pointer;
   }
 }
 </style>
