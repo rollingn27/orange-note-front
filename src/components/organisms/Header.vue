@@ -4,21 +4,12 @@
     <div class="nav">
       <div class="nav-logo">
         <img src="@/assets/orangeIcon.png" />
-        <div
-          :style="{
-            top: '3.25rem',
-            left: '5rem',
-            position: 'fixed',
-            width: '12rem',
-          }"
-        >
-          <SubmitButton submitText="임시로그아웃" @click="signOut" />
-        </div>
       </div>
       <div class="nav-space"></div>
       <div class="nav-login" v-show="!!userId">
         <span>{{ userId }}</span
         >님 안녕하세요.
+        <img src="@/assets/logout.png" @click="signOut" />
       </div>
     </div>
   </div>
@@ -76,6 +67,10 @@ export default {
   align-items: flex-end;
   justify-content: flex-end;
   font-size: 1.25rem;
+  img {
+    margin-left: 1rem;
+    width: 1.75rem;
+  }
 }
 .nav-login {
   span {
