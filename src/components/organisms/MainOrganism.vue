@@ -14,7 +14,6 @@
       <IssueContainer :containerTitle="'진행중'" class="issueCantainer" />
       <IssueContainer :containerTitle="'완료'" class="issueCantainer" />
     </div>
-    <div class="buttonArea">+</div>
   </div>
   <CreateModal v-if="createModal" @close-modal="closeModal" />
   <IssueModal v-if="issueModal" @close-modal="closeModal" />

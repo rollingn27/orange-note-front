@@ -110,7 +110,6 @@ export default {
         };
         this.$debugLog("CreateModal", params);
         const result = await this.$emailSearch(payload);
-        this.searchEmailList = result;
         this.searchEmailWord = "";
         if (result.success) {
           this.searchEmailList = result.data;
@@ -261,7 +260,6 @@ export default {
     font-size: 1rem;
     color: black;
     background: #c8c8c8;
-    /* background: blue; */
     border-radius: 5px;
     display: flex;
     opacity: 0.9;

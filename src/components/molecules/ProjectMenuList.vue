@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       height: "3rem",
-      projectList: [],
+      projectList: ["Empty"],
       spanHeight: 1,
       liHeight: 2,
       margin: 0.5,
@@ -67,9 +67,7 @@ export default {
     },
   },
   methods: {
-    getProjectList() {
-      this.projectList = ["item", "item", "item", "item", "item"];
-    },
+    getProjectList() {},
 
     createModal() {
       this.$emit("open-create-modal");
