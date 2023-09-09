@@ -1,4 +1,5 @@
 <template>
+  <div class="loading-back"></div>
   <div class="lds-facebook">
     <div></div>
     <div></div>
@@ -9,12 +10,24 @@
 export default {};
 </script>
 <style lang="scss" scoped>
+.loading-back {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(231, 237, 240);
+  opacity: 0.5;
+  z-index: 999;
+}
 .lds-facebook {
   display: inline-block;
   position: fixed;
   height: 4rem;
   top: 50%;
   left: 50%;
+  z-index: 999;
+  background: black;
   div {
     display: inline-block;
     position: absolute;
